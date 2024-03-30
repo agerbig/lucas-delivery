@@ -5,6 +5,7 @@ const Kunde = defineTable({
     code: column.number(),
     name: column.text(),
     adresse: column.text(),
+    anlageAm: column.date(),
   },
 });
 

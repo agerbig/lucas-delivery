@@ -1,7 +1,6 @@
 
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
 import { db, Kunde } from 'astro:db';
 
 const kunden = await db.select().from(Kunde);
@@ -44,13 +43,15 @@ const kunden = await db.select().from(Kunde);
           <th>Kundencode</th>
           <th>Name</th>
           <th>Adresse</th>
+          <th>Anlage am</th>
         </tr>
         {
-          kunden.map(({code, name, adresse}) => (
+          kunden.map(({code, name, adresse, anlageAm}) => (
             <tr>
               <td>{code}</td>
               <td>{name}</td>
               <td>{adresse}</td>
+              <td>{anlageAm.toLocaleString("de-DE")}</td>
             </tr>
           ))
         }
@@ -69,15 +70,16 @@ const kunden = await db.select().from(Kunde);
 		font-size: 20px;
 		line-height: 1.6;
 	}
-  textarea {
+  table {
     width: 100%;
-    height: 150px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
+  }
+  th {
+    border-style: solid;
+    text-align: left;
+  }
+
+  td {
+    border-style: solid;
   }
 	.astro-a {
 		position: absolute;

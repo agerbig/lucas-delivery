@@ -1,19 +1,24 @@
 
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
 import { db, Kunde } from 'astro:db';
 
 if (Astro.request.method === 'POST') {
   // parse form data
   const formData = await Astro.request.formData();
-  const code = formData.get('code');
+  const formcode = formData.get('code');
   const name = formData.get('familienname');
   const adresse = formData.get('adresse');
-  console.log('Formdata: ', {code, name, adresse});
-  if (typeof code === 'string' && typeof name === 'string' && typeof adresse === 'string') {
-    console.log('insert');
-    await db.insert(Kunde).values({code, name, adresse});
+  console.log('Formdata: ', {formcode, name, adresse});
+  if (typeof formcode === 'string' && typeof name === 'string' && typeof adresse === 'string') {
+    let code: number;
+    if (formcode.match(/^\d+$/)) {
+      code = Number(formcode);
+    } else {
+      return;
+    }
+    const anlageAm = new Date();
+    await db.insert(Kunde).values({code, name, adresse, anlageAm});
   } else {
     console.log('error');
   }
