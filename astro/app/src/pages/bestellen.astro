@@ -35,17 +35,16 @@ import Layout from '../layouts/Layout.astro';
 				</linearGradient>
 			</defs>
 		</svg>
-    <h1>Gib hier deine Bestellung auf</h1>
+    <h1>Bestellung aufgeben</h1>
     <section>
       <form>
-        <div>
-          <label for="kunde">Kundecode:</label>
-          <input type="text" id="kunde" name="kunde" />
-        </div>
-        <div>
-          <label for="bestellung">Bestellung:</label>
-          <textarea id="bestellung" name="bestellung"></textarea>
-        </div>
+
+        <label for="kunde">Kundecode:</label>
+        <input type="text" id="kunde" name="kunde" />
+
+        <label for="bestellung">Bestellung:</label>
+        <textarea id="bestellung" name="bestellung"></textarea>
+
         <button type="submit">Bestellung absenden</button>
       </form>
     </section>
@@ -62,15 +61,42 @@ import Layout from '../layouts/Layout.astro';
 		font-size: 20px;
 		line-height: 1.6;
 	}
-  textarea {
+  section > form {
     width: 100%;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 50px 160px;
+  }
+  textarea {
     height: 150px;
     padding: 12px 20px;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: #13151a;
     font-size: 16px;
+  }
+  label {
+    align-self: baseline;
+  }
+  input {
+    padding: 12px 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #13151a;
+    font-size: 16px;
+    color: white;
+    align-self: baseline;
+  }
+  button {
+    color: white;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #13151a;
+    width: 100px;
+    height: 40px;
+    grid-column-start: 2;
+    justify-self: end;
   }
 	.astro-a {
 		position: absolute;
