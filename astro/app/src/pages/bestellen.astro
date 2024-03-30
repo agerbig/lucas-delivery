@@ -1,8 +1,24 @@
 
 ---
 import Layout from '../layouts/Layout.astro';
+import { db, eq, Kunde, Bestellung } from 'astro:db';
 
-// TODO: Speichere Bestellung
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const formcode = formData.get('kunde');
+  const bestellung = formData.get('bestellung');
+  let code: number;
+  if (typeof formcode === 'string' && typeof bestellung === 'string')
+  if (formcode.match(/^\d+$/)) {
+    code = Number(formcode);
+    const kunde = await db.select().from(Kunde).where(eq(Kunde.code, code));
+    if (kunde) {
+      const anlageAm = new Date();
+      await db.insert(Bestellung).values({kundencode: code, bestellung: bestellung, datum: anlageAm});
+    }
+  }
+}
+
 ---
 
 <Layout title="Lucas Delivery">
@@ -37,7 +53,7 @@ import Layout from '../layouts/Layout.astro';
 		</svg>
     <h1>Bestellung aufgeben</h1>
     <section>
-      <form>
+      <form method="POST">
 
         <label for="kunde">Kundecode:</label>
         <input type="text" id="kunde" name="kunde" />
@@ -75,6 +91,7 @@ import Layout from '../layouts/Layout.astro';
     border-radius: 4px;
     background-color: #13151a;
     font-size: 16px;
+    color: white;
   }
   label {
     align-self: baseline;

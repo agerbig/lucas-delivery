@@ -9,7 +9,7 @@ if (Astro.request.method === 'POST') {
   const formcode = formData.get('code');
   const name = formData.get('familienname');
   const adresse = formData.get('adresse');
-  console.log('Formdata: ', {formcode, name, adresse});
+  // console.log('Formdata: ', {formcode, name, adresse});
   if (typeof formcode === 'string' && typeof name === 'string' && typeof adresse === 'string') {
     let code: number;
     if (formcode.match(/^\d+$/)) {
