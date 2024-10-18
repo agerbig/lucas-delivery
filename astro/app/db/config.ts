@@ -2,7 +2,7 @@ import { column, defineDb, defineTable } from 'astro:db';
 
 const Kunde = defineTable({
   columns: {
-    code: column.number(),
+    code: column.number({ primaryKey: true }),
     name: column.text(),
     adresse: column.text(),
     anlageAm: column.date(),
@@ -11,7 +11,8 @@ const Kunde = defineTable({
 
 const Bestellung = defineTable({
   columns: {
-    kundencode: column.number(),
+    nummer: column.number({ primaryKey: true }),
+    kundencode: column.number({ references: () => Kunde.columns.code }),
     bestellung: column.text(),
     datum: column.date(),
   },
